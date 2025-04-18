@@ -35,6 +35,9 @@ public class Playlist {
     public void addMusic(Music music, String inputPassword) { //playlist setter
         validatePassword(inputPassword);
 
+        if (music == null)
+            throw new InvalidOperationException("Cannot add null music to playlist");
+
         if (playlist.contains(music))
             throw new InvalidOperationException("Music already exists in the playlist!");
 
@@ -54,6 +57,9 @@ public class Playlist {
 
     //Constructor
     public Playlist(String title, User owner) {
+        if (owner == null)
+            throw new InvalidOperationException("Cannot create playlist for null person");
+
         this.title = title;
         this.owner = owner;
     }

@@ -24,6 +24,9 @@ public class RegularBehavior implements UserBehavior {
 
     @Override
     public void playMusic(Music music) {
+        if (music == null)
+            throw new InvalidOperationException("Cannot play null music!");
+
         if (playingLimit == 0)
             throw new InvalidOperationException("Your free playing limit has reached");
 
@@ -35,6 +38,9 @@ public class RegularBehavior implements UserBehavior {
 
     @Override
     public void buyPremium(User owner, int month) {
+        if (owner == null)
+            throw new InvalidOperationException("Cannot buy premium for null user");
+
         owner.setBehavior(new PremiumBehavior(month));
     }
 }

@@ -28,11 +28,17 @@ public class PremiumBehavior implements UserBehavior{
 
     @Override
     public void buyPremium(User owner, int month) {
+        if (owner == null)
+            throw new InvalidOperationException("Cannot buy premium for null user");
+
         this.month += month;
     }
 
     @Override
     public void createPlaylist(String title, User owner) {
+        if (owner == null)
+            throw new InvalidOperationException("Cannot create play list for null user");
+
         Playlist newPlaylist = new Playlist(title, owner);
 
         owner.addPlaylist(newPlaylist);
@@ -40,6 +46,8 @@ public class PremiumBehavior implements UserBehavior{
 
     @Override
     public void playMusic(Music music) {
+        if (music == null)
+            throw new InvalidOperationException("Cannot play null music!");
         music.play();
     }
 }

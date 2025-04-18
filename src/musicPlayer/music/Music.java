@@ -33,6 +33,9 @@ public class Music {
 
     //Constructor
     public Music(String title, User singer) {
+        if (singer == null)
+            throw new InvalidOperationException("Singer cannot be null user");
+
         for (Music music: allMusics)
             if (music.title.equals(title) && music.singer.equals(singer))
                 throw new InvalidOperationException("Music already exist");
