@@ -1,6 +1,7 @@
 package musicPlayer.user;
 
 import musicPlayer.exceptions.InvalidOperationException;
+import musicPlayer.music.*;
 import musicPlayer.user.userBehavior.*;
 
 import java.util.ArrayList;
@@ -17,9 +18,15 @@ public class User {
     private ArrayList<User> followerList = new ArrayList<>();
     private ArrayList<User> followingList = new ArrayList<>();
 
+    private ArrayList<Playlist> playlists = new ArrayList<>();
+
     //Getters
     public static ArrayList<User> getAllUsers() {
         return allUsers;
+    }
+
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
     }
 
     public String getUsername() {
@@ -66,7 +73,14 @@ public class User {
     }
 
     public void setBehavior(UserBehavior behavior) {
+        if (behavior == null)
+            throw new InvalidOperationException("Can not set null behavior!");
+
         this.behavior = behavior;
+    }
+
+    public void createPlaylist (String title){
+        behavior.createPlaylist(title, this);
     }
 
     public void addFollower (User user) {
@@ -74,6 +88,13 @@ public class User {
             throw new InvalidOperationException(user.username + "doesn't follow you!");
 
         followerList.add(user);
+    }
+
+    public void addPlaylist(Playlist playlist) {
+        if (playlist == null)
+            throw new InvalidOperationException("Can not add null playlist!");
+
+        playlists.add(playlist);
     }
 
     //Constructor
@@ -95,6 +116,10 @@ public class User {
         followingList.add(user);
 
         user.addFollower(this);
+    }
+
+    public void playMusic (Music music) {
+        behavior.playMusic(music);
     }
 
     public void buyPremium (int month) {
