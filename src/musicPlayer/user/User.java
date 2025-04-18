@@ -12,7 +12,7 @@ public class User {
 
     private String password;
 
-    UserBehavior behavior;
+    private UserBehavior behavior;
 
     private ArrayList<User> followerList = new ArrayList<>();
     private ArrayList<User> followingList = new ArrayList<>();
@@ -24,6 +24,10 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public UserBehavior getBehavior() {
+        return behavior;
     }
 
     public ArrayList<User> getFollowerList() {
@@ -55,6 +59,10 @@ public class User {
             throw new InvalidOperationException("Password's length must be (>= 8)");
 
         this.password = password;
+    }
+
+    public void setBehavior(UserBehavior behavior) {
+        this.behavior = behavior;
     }
 
     public void addFollower (User user) {
