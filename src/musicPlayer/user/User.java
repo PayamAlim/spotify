@@ -83,7 +83,7 @@ public class User {
     }
 
     //Methods
-    void follow (User user) {
+    public void follow (User user) {
         if (!allUsers.contains(user))
             throw new InvalidOperationException("User not found to follow!");
 
@@ -92,7 +92,7 @@ public class User {
         user.addFollower(this);
     }
 
-    void buyPremium (User owner, int month) {
+    public void buyPremium (User owner, int month) {
         behavior.buyPremium(owner, month);
     }
 }
