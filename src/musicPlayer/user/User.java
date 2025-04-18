@@ -133,6 +133,6 @@ public class User {
     //(Clean Code)
     public static void isNullOrEmpty (String string, String name) {
         if (string == null || string.isEmpty())
-            throw new InvalidOperationException(name + "is null or empty!");
+            throw new InvalidOperationException(name + " is null or empty!");
     }
 }

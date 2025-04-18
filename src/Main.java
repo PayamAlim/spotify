@@ -18,9 +18,10 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("* test wrong inputs");
+        System.out.println("\n* test wrong inputs");
         User wrongUser1 = null;
         User wrongUser2 = null;
+        User wrongUser3 = null;
         try {
             wrongUser1 = new User("Payam", "1234444444444");
         } catch (InvalidOperationException e) {
@@ -31,15 +32,20 @@ public class Main {
         } catch (InvalidOperationException e) {
             System.out.println(e.getMessage());
         }
+        try {
+            wrongUser3 = new User("", "8765");
+        } catch (InvalidOperationException e) {
+            System.out.println(e.getMessage());
+        }
 
-        System.out.println("* test random follow");
+        System.out.println("\n* test random follow");
         try {
             user1.follow(null);
         } catch (InvalidOperationException e) {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("* test buy premium");
+        System.out.println("\n* test buy premium");
         try {
             user1.buyPremium(4);
             if (user1.getBehavior() instanceof PremiumBehavior)
@@ -48,11 +54,11 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("* test buy premium for premium");
+        System.out.println("\n* test buy premium for premium");
         user1.buyPremium(4);
         System.out.println(((PremiumBehavior)user1.getBehavior()).getMonth());
 
-        System.out.println("* test following");
+        System.out.println("\n* test following");
         try {
             user2.follow(user3);
             if (user2.getFollowingList().contains(user3) && user3.getFollowerList().contains(user2))
@@ -69,9 +75,16 @@ public class Main {
         Music music1 = new Music("Shahre Gham", singer1);
         Music music2 = new Music("Bibigol", singer2);
         Music music3 = new Music("Parseh", singer3);
+        Music music4 = new Music("Bibigol2", singer2);
 
 
-        System.out.println("* test add playlist to account");
+        System.out.println("\n* test create playlist in account & Playlist");
+        try {
+            user1.createPlaylist("");
+        }
+        catch (InvalidOperationException e) {
+            System.out.println(e.getMessage());
+        }
         user1.createPlaylist("Best");
         try {
             user2.createPlaylist("BAD");
@@ -90,8 +103,36 @@ public class Main {
         } else {
             System.out.println("Fail");
         }
+        try {
+            best.removeMusic(music1, "123456789");
+        }
+        catch (InvalidOperationException e) {
+            System.out.println(e.getMessage());
+        }
         Music music = best.searchInPlaylist("Parseh", "Siavash");
         music.play();
+        try {
+            best.addMusic(music, "123456789");
+        }
+        catch (InvalidOperationException e) {
+            System.out.println(e.getMessage());
+        }
+        best.addMusic(music2, "123456789");
+        best.addMusic(music4, "123456789");
+        best.playPlaylist();
+        System.out.println();
+        best.shufflePlaylist();
 
+        System.out.println("\n* test Music");
+        try {
+            Music music5 = new Music("Parseh", singer3);
+        } catch (InvalidOperationException e) {
+            System.out.println(e.getMessage());
+        }
+        Music music5 = new Music("Parseh", singer2);
+
+        for (Music m: Music.search("Parseh")) {
+            System.out.println(m.getSinger().getUsername());
+        }
     }
 }
