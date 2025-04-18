@@ -1,4 +1,6 @@
 import musicPlayer.exceptions.InvalidOperationException;
+import musicPlayer.music.Music;
+import musicPlayer.music.Playlist;
 import musicPlayer.user.*;
 import musicPlayer.user.userBehavior.*;
 
@@ -60,6 +62,10 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        System.out.println("* test buy premium for premium");
+        user1.buyPremium(4);
+        System.out.println(((PremiumBehavior)user1.getBehavior()).getMonth());
+
         System.out.println("* test following");
         try {
             user2.follow(user3);
@@ -68,5 +74,37 @@ public class Main {
         } catch (InvalidOperationException e) {
             System.out.println(e.getMessage());
         }
+
+        //test music
+        User singer1 = new User("Dariush", "444444444");
+        User singer2 = new User("Moein", "444444444");
+        User singer3 = new User("Siavash", "444444444");
+
+        Music music1 = new Music("Shahre Gham", singer1);
+        Music music2 = new Music("Bibigol", singer2);
+        Music music3 = new Music("Parseh", singer3);
+
+
+        System.out.println("* test add playlist to account");
+        user1.createPlaylist("Best");
+        try {
+            user2.createPlaylist("BAD");
+        }
+        catch (InvalidOperationException e) {
+            System.out.println(e.getMessage());
+        }
+        Playlist best = user1.getPlaylists().get(0);
+        best.addMusic(music3, "123456789");
+        best.addMusic(music1, "123456789");
+        best.editTitle("Mahshar", "123456789");
+        best.removeMusic(music1, "123456789");
+
+        if (best.searchInPlaylist("Shahre Gham") == null) {
+            System.out.println("Success");
+        } else {
+            System.out.println("Fail");
+        }
+        Music music = best.searchInPlaylist("Parseh", "Siavash");
+        music.play();
     }
 }

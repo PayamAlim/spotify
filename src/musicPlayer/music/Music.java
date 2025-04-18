@@ -32,13 +32,6 @@ public class Music {
     }
 
     //Setters
-    public static void addMusic(Music music) {
-        if (music == null)
-            throw new InvalidOperationException("Can not add null music!");
-
-        allMusics.add(music);
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }

@@ -1,5 +1,6 @@
 package musicPlayer.user.userBehavior;
 
+import musicPlayer.exceptions.InvalidOperationException;
 import musicPlayer.music.Music;
 import musicPlayer.music.Playlist;
 import musicPlayer.user.*;
@@ -14,6 +15,9 @@ public class PremiumBehavior implements UserBehavior{
 
     //Setters
     public void setMonth(int month) {
+        if (month <= 0)
+            throw new InvalidOperationException("Premium time must be positive!");
+
         this.month = month;
     }
 

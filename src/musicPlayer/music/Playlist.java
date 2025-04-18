@@ -24,7 +24,7 @@ public class Playlist {
         validatePassword(inputPassword);
 
         this.title = newTitle;
-        //System.out.println("Playlist title updated to: " + newTitle);
+        System.out.println("Playlist title updated to: " + newTitle);
     }
 
     public void addMusic(Music music, String inputPassword) {
@@ -34,7 +34,7 @@ public class Playlist {
             throw new InvalidOperationException("Music already exists in the playlist!");
 
         playlist.add(music);
-        //System.out.println("Music added to playlist: " + music.title);
+        System.out.println("Music added to playlist: " + music.getTitle());
     }
 
     public void removeMusic(Music music, String inputPassword) {
@@ -44,7 +44,7 @@ public class Playlist {
             throw new InvalidOperationException("Music does not exist in the playlist.");
 
         playlist.remove(music);
-        //System.out.println("Music removed from playlist: " + music.getTitle());
+        System.out.println("Music removed from playlist: " + music.getTitle());
     }
 
     //Constructor
