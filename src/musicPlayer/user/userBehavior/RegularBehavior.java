@@ -12,14 +12,9 @@ public class RegularBehavior implements UserBehavior {
         return playingLimit;
     }
 
-    //Setters
-    public void setPlayingLimit(int playingLimit) {
-        this.playingLimit = playingLimit;
-    }
-
     //Construuctors
     public RegularBehavior() {
-        this.setPlayingLimit(5);
+        this.playingLimit = 5;
     }
 
     @Override
@@ -32,7 +27,10 @@ public class RegularBehavior implements UserBehavior {
         if (playingLimit == 0)
             throw new InvalidOperationException("Your free playing limit has reached");
 
+        music.play();
+
         playingLimit --;
+        System.out.println("- Playing limit: " + playingLimit);
     }
 
     @Override
