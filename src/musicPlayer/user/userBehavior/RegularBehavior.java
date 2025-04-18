@@ -33,7 +33,7 @@ public class RegularBehavior implements UserBehavior {
         music.play();
 
         playingLimit --;
-        System.out.println("- Playing limit: " + playingLimit);
+        //System.out.println("- Playing limit: " + playingLimit);
     }
 
     @Override
