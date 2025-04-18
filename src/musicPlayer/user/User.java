@@ -1,6 +1,7 @@
 package musicPlayer.user;
 
 import musicPlayer.exceptions.InvalidOperationException;
+import musicPlayer.music.*;
 import musicPlayer.user.userBehavior.*;
 
 import java.util.ArrayList;
@@ -17,13 +18,23 @@ public class User {
     private ArrayList<User> followerList = new ArrayList<>();
     private ArrayList<User> followingList = new ArrayList<>();
 
+    private ArrayList<Playlist> playlists = new ArrayList<>();
+
     //Getters
     public static ArrayList<User> getAllUsers() {
         return allUsers;
     }
 
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
+    }
+
     public String getUsername() {
         return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public UserBehavior getBehavior() {
@@ -62,22 +73,37 @@ public class User {
     }
 
     public void setBehavior(UserBehavior behavior) {
+        if (behavior == null)
+            throw new InvalidOperationException("Can not set null behavior!");
+
         this.behavior = behavior;
     }
 
+    public void createPlaylist (String title){
+        behavior.createPlaylist(title, this);
+    }
+
     public void addFollower (User user) {
-        ArrayList<User> userFollowingList = user.getFollowingList();
-        if (!userFollowingList.contains(this))
-            throw new InvalidOperationException(user.getUsername() + "doesn't follow you!");
+        if (!user.followingList.contains(this))
+            throw new InvalidOperationException(user.username + "doesn't follow you!");
 
         followerList.add(user);
     }
 
+    public void addPlaylist(Playlist playlist) {
+        if (playlist == null)
+            throw new InvalidOperationException("Can not add null playlist!");
+
+        playlists.add(playlist);
+    }
+
     //Constructor
     public User (String username, String password) {
+        //Set and Validate
         this.setUsername(username);
         this.setPassword(password);
-        this.behavior = new RegularBehavior();
+
+        behavior = new RegularBehavior();
 
         User.addUser(this);
     }
@@ -92,7 +118,11 @@ public class User {
         user.addFollower(this);
     }
 
-    public void buyPremium (User owner, int month) {
-        behavior.buyPremium(owner, month);
+    public void playMusic (Music music) {
+        behavior.playMusic(music);
+    }
+
+    public void buyPremium (int month) {
+        behavior.buyPremium(this, month);
     }
 }

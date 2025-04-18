@@ -1,5 +1,7 @@
 package musicPlayer.user.userBehavior;
 
+import musicPlayer.exceptions.InvalidOperationException;
+import musicPlayer.music.Music;
 import musicPlayer.user.*;
 
 public class RegularBehavior implements UserBehavior {
@@ -18,6 +20,19 @@ public class RegularBehavior implements UserBehavior {
     //Construuctors
     public RegularBehavior() {
         this.setPlayingLimit(5);
+    }
+
+    @Override
+    public void createPlaylist(String title, User owner) {
+        throw new InvalidOperationException("Buy Premium to create playlist");
+    }
+
+    @Override
+    public void playMusic(Music music) {
+        if (playingLimit == 0)
+            throw new InvalidOperationException("Your free playing limit has reached");
+
+        playingLimit --;
     }
 
     @Override
