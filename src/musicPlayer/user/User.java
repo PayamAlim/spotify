@@ -99,6 +99,9 @@ public class User {
 
     //Methods
     public void follow (User user) {
+        if (user == null)
+            throw new InvalidOperationException("Cannot follow null person!");
+
         if (!allUsers.contains(user))
             throw new InvalidOperationException("User not found to follow!");
 
