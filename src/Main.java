@@ -53,7 +53,7 @@ public class Main {
 
         System.out.println("* test buy premium");
         try {
-            user1.buyPremium(user1, 4);
+            user1.buyPremium(4);
             if (user1.getBehavior() instanceof PremiumBehavior)
                 System.out.println("Success");
         } catch (InvalidOperationException e) {

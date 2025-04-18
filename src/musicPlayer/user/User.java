@@ -70,18 +70,19 @@ public class User {
     }
 
     public void addFollower (User user) {
-        ArrayList<User> userFollowingList = user.getFollowingList();
-        if (!userFollowingList.contains(this))
-            throw new InvalidOperationException(user.getUsername() + "doesn't follow you!");
+        if (!user.followingList.contains(this))
+            throw new InvalidOperationException(user.username + "doesn't follow you!");
 
         followerList.add(user);
     }
 
     //Constructor
     public User (String username, String password) {
+        //Set and Validate
         this.setUsername(username);
         this.setPassword(password);
-        this.behavior = new RegularBehavior();
+
+        behavior = new RegularBehavior();
 
         User.addUser(this);
     }
@@ -96,7 +97,7 @@ public class User {
         user.addFollower(this);
     }
 
-    public void buyPremium (User owner, int month) {
-        behavior.buyPremium(owner, month);
+    public void buyPremium (int month) {
+        behavior.buyPremium(this, month);
     }
 }
