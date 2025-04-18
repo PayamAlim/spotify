@@ -31,29 +31,19 @@ public class Music {
         return numberOfStream;
     }
 
-    //Setters
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setSinger(User singer) {
-        this.singer = singer;
-    }
-
-    public void setNumberOfStream(int numberOfStream) {
-        if (numberOfStream < 0)
-            throw new InvalidOperationException("Number of stream cannot be negative!");
-        this.numberOfStream = numberOfStream;
-    }
-
     //Constructor
     public Music(String title, User singer) {
+        User.isNullOrEmpty(title, "Title");
+
+        if (singer == null)
+            throw new InvalidOperationException("Singer cannot be null user");
+
         for (Music music: allMusics)
             if (music.title.equals(title) && music.singer.equals(singer))
                 throw new InvalidOperationException("Music already exist");
 
-        this.setTitle(title);
-        this.setSinger(singer);
+        this.title = title;
+        this.singer = singer;
         this.numberOfStream = 0;
 
         allMusics.add(this);

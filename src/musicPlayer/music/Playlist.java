@@ -19,16 +19,24 @@ public class Playlist {
         return title;
     }
 
+    public void playPlaylist() { //playlist getter
+        for (Music music : playlist)
+            music.play();
+    }
+
     //Setters
-    public void editTitle(String newTitle, String inputPassword) {
+    public void editTitle(String newTitle, String inputPassword) { //title setter
         validatePassword(inputPassword);
 
         this.title = newTitle;
         System.out.println("Playlist title updated to: " + newTitle);
     }
 
-    public void addMusic(Music music, String inputPassword) {
+    public void addMusic(Music music, String inputPassword) { //playlist setter
         validatePassword(inputPassword);
+
+        if (music == null)
+            throw new InvalidOperationException("Cannot add null music to playlist");
 
         if (playlist.contains(music))
             throw new InvalidOperationException("Music already exists in the playlist!");
@@ -37,7 +45,7 @@ public class Playlist {
         System.out.println("Music added to playlist: " + music.getTitle());
     }
 
-    public void removeMusic(Music music, String inputPassword) {
+    public void removeMusic(Music music, String inputPassword) { //playlist setter
         validatePassword(inputPassword);
 
         if (!playlist.contains(music))
@@ -49,6 +57,11 @@ public class Playlist {
 
     //Constructor
     public Playlist(String title, User owner) {
+        User.isNullOrEmpty(title, "Title");
+
+        if (owner == null)
+            throw new InvalidOperationException("Cannot create playlist for null person");
+
         this.title = title;
         this.owner = owner;
     }
@@ -69,11 +82,6 @@ public class Playlist {
             if (music.getTitle().equals(title) && music.getSinger().getUsername().equals(singerName))
                 return music;
         return null;
-    }
-
-    public void playPlaylist() {
-        for (Music music : playlist)
-            music.play();
     }
 
     public void shufflePlaylist() {
