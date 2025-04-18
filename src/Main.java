@@ -134,5 +134,15 @@ public class Main {
         for (Music m: Music.search("Parseh")) {
             System.out.println(m.getSinger().getUsername());
         }
+
+        System.out.println("\n* test play music");
+        user1.playMusic(music);
+        for (int i = 0; i < 6; i ++)
+            try {
+                user2.playMusic(music5);
+            } catch (InvalidOperationException e) {
+                System.out.println(e.getMessage());
+            }
+
     }
 }
