@@ -32,20 +32,6 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("* test random adding user");
-        try {
-            User.addUser(null);
-        } catch (InvalidOperationException e) {
-            System.out.println(e.getMessage());
-        }
-
-        System.out.println("* test random follower");
-        try {
-            user1.addFollower(user2);
-        } catch (InvalidOperationException e) {
-            System.out.println(e.getMessage());
-        }
-
         System.out.println("* test random follow");
         try {
             user1.follow(null);

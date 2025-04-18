@@ -50,13 +50,6 @@ public class User {
     }
 
     //Setters
-    public static void addUser(User user) {
-        if (user == null)
-            throw new InvalidOperationException("Can not add null user!");
-
-        allUsers.add(user);
-    }
-
     public void setUsername(String username) {
         for (User user: allUsers)
             if (user.username.equals(username))
@@ -79,20 +72,16 @@ public class User {
         this.behavior = behavior;
     }
 
-    public void createPlaylist (String title){
+    public void createPlaylist (String title){ //playlists setter
         behavior.createPlaylist(title, this);
-    }
-
-    public void addFollower (User user) {
-        if (!user.followingList.contains(this))
-            throw new InvalidOperationException(user.username + "doesn't follow you!");
-
-        followerList.add(user);
     }
 
     public void addPlaylist(Playlist playlist) {
         if (playlist == null)
             throw new InvalidOperationException("Can not add null playlist!");
+
+        if (behavior instanceof RegularBehavior)
+            throw new InvalidOperationException("Buy Premium to create playlist");
 
         playlists.add(playlist);
     }
@@ -105,7 +94,7 @@ public class User {
 
         behavior = new RegularBehavior();
 
-        User.addUser(this);
+        User.allUsers.add(this);
     }
 
     //Methods
@@ -113,9 +102,15 @@ public class User {
         if (!allUsers.contains(user))
             throw new InvalidOperationException("User not found to follow!");
 
+        if (followingList.contains(user))
+            throw new InvalidOperationException("Already exists in following!");
+
+        if (user == this)
+            throw new InvalidOperationException("User cannot follow itself!");
+
         followingList.add(user);
 
-        user.addFollower(this);
+        user.followerList.add(this);
     }
 
     public void playMusic (Music music) {
