@@ -36,6 +36,8 @@ public class PremiumBehavior implements UserBehavior{
 
     @Override
     public void createPlaylist(String title, User owner) {
+        User.isNullOrEmpty(title, "Title");
+
         if (owner == null)
             throw new InvalidOperationException("Cannot create play list for null user");
 

@@ -57,6 +57,8 @@ public class Playlist {
 
     //Constructor
     public Playlist(String title, User owner) {
+        User.isNullOrEmpty(title, "Title");
+
         if (owner == null)
             throw new InvalidOperationException("Cannot create playlist for null person");
 

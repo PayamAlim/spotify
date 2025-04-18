@@ -33,6 +33,8 @@ public class Music {
 
     //Constructor
     public Music(String title, User singer) {
+        User.isNullOrEmpty(title, "Title");
+
         if (singer == null)
             throw new InvalidOperationException("Singer cannot be null user");
 

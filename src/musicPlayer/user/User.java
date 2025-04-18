@@ -51,6 +51,8 @@ public class User {
 
     //Setters
     public void setUsername(String username) {
+        isNullOrEmpty(username, "Username");
+
         for (User user: allUsers)
             if (user.username.equals(username))
                 throw new InvalidOperationException("Username already exist!");
@@ -59,6 +61,8 @@ public class User {
     }
 
     public void setPassword(String password) {
+        isNullOrEmpty(password, "Password");
+
         if (password.length() < 8)
             throw new InvalidOperationException("Password's length must be (>= 8)");
 
@@ -73,6 +77,8 @@ public class User {
     }
 
     public void createPlaylist (String title){ //playlists setter
+        isNullOrEmpty(title, "Title");
+
         behavior.createPlaylist(title, this);
     }
 
@@ -122,5 +128,11 @@ public class User {
 
     public void buyPremium (int month) {
         behavior.buyPremium(this, month);
+    }
+
+    //(Clean Code)
+    public static void isNullOrEmpty (String string, String name) {
+        if (string == null || string.isEmpty())
+            throw new InvalidOperationException(name + "is null or empty!");
     }
 }
